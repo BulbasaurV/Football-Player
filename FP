@@ -1,0 +1,431 @@
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<sstream>
+using namespace std;
+
+
+const int MaxIndex = 10;
+
+
+struct footballplayerType
+{/*footballplayerType*/
+
+
+ string Name                = "Jon";
+ string Position            = "no position";
+ int NumberOfTouchDowns     = 0;
+ int NumberOfCatches        = 0;
+ int NumberOfPassingYards   = 0;
+ int NumberOfReceivingYards = 0;
+ int NumberOfRushingYards   = 0;
+
+
+};/*footballplayerType*/
+
+
+footballplayerType footballplayer[MaxIndex];
+
+
+void Initialize(void)
+{/*Initialize - structures*/
+
+
+ for(int Index=0; Index<MaxIndex; ++Index)
+ {/*for - Index*/
+ 
+  footballplayer[Index].Name                    = "Jon";
+  footballplayer[Index].Position                = "no position";
+  footballplayer[Index].NumberOfTouchDowns      = 0;
+  footballplayer[Index].NumberOfCatches         = 0;
+  footballplayer[Index].NumberOfPassingYards    = 0;
+  footballplayer[Index].NumberOfReceivingYards  = 0;
+  footballplayer[Index].NumberOfRushingYards    = 0;
+
+
+ }/*for - _Index*/
+
+
+}/*Initialize - structures*/
+
+
+void Output(void)
+{/*Output - structures*/
+
+
+ for(int Index=0; Index<MaxIndex; ++Index)
+ {/*for - Index*/
+ 
+  cout << footballplayer[Index].Name                    << ' ';
+  cout << footballplayer[Index].Position                << ' ';
+  cout << footballplayer[Index].NumberOfTouchDowns      << ' ';
+  cout << footballplayer[Index].NumberOfCatches         << ' ';
+  cout << footballplayer[Index].NumberOfPassingYards    << ' ';
+  cout << footballplayer[Index].NumberOfReceivingYards  << ' ';
+  cout << footballplayer[Index].NumberOfRushingYards    << endl;
+
+
+  }/*for - _Index*/
+
+
+}/*Output - structures*/
+
+
+void Read(void)
+{/*Read - data from text file*/
+
+
+ int Index = 0;
+ 
+ ifstream inputfilestream("Ch9_Ex7Data.txt");
+
+
+ while((inputfilestream.good()) && (Index<MaxIndex))
+ {/*while((_inputfilestream.good()) && (Index<MaxIndex))*/
+
+
+  inputfilestream >> footballplayer[Index].Name;
+  inputfilestream >> footballplayer[Index].Position;
+  inputfilestream >> footballplayer[Index].NumberOfTouchDowns;
+  inputfilestream >> footballplayer[Index].NumberOfCatches;
+  inputfilestream >> footballplayer[Index].NumberOfPassingYards;
+  inputfilestream >> footballplayer[Index].NumberOfReceivingYards;
+  inputfilestream >> footballplayer[Index].NumberOfRushingYards;
+
+
+  Index += 1;
+
+
+  }/*while((_inputfilestream.good()) && (_Index<MaxIndex))*/
+
+
+ inputfilestream.clear();
+ inputfilestream.close();
+
+
+}/*Read - data from text file*/
+
+
+void OutputToFile(void)
+{/*Output - structures to file*/
+
+
+ ofstream outputfilestream("Ch9_Ex7Out.txt");
+
+
+ if(outputfilestream.good())
+ {
+  for(int Index=0; Index<MaxIndex; ++Index)
+  {/*for - Index*/
+ 
+   outputfilestream << footballplayer[Index].Name                    << ' ';
+   outputfilestream << footballplayer[Index].Position                << ' ';
+   outputfilestream << footballplayer[Index].NumberOfTouchDowns      << ' ';
+   outputfilestream << footballplayer[Index].NumberOfCatches         << ' ';
+   outputfilestream << footballplayer[Index].NumberOfPassingYards    << ' ';
+   outputfilestream << footballplayer[Index].NumberOfReceivingYards  << ' ';
+   outputfilestream << footballplayer[Index].NumberOfRushingYards    << endl;
+
+
+  }/*for - _Index*/
+ }
+
+
+ outputfilestream.clear();
+ outputfilestream.close();
+
+
+}/*Output - structures to file*/
+
+
+
+
+void OutputTouchDowns(int Index)
+{
+  cout << "Touch Downs: " << footballplayer[Index].NumberOfTouchDowns;
+}
+
+
+void OutputNumberofCatches(int Index)
+{
+  cout << "Number of Catches "  << footballplayer[Index].NumberOfCatches;
+}
+
+
+void OutputPassingYards(int Index)
+{
+ cout << "Passing Yards: "     << footballplayer[Index].NumberOfPassingYards;
+}
+
+
+void OutputReceivingYards(int Index)
+{
+ cout << "Receiving Yards: "   << footballplayer[Index].NumberOfReceivingYards;
+}
+
+
+void OutputRushingYards(int Index)
+{
+ cout << "Rushing Yards: " << footballplayer[Index].NumberOfRushingYards;
+}
+
+
+void PrintPlayersData(int Index)
+{/*PrintPlayersData*/
+
+
+ OutputTouchDowns(Index);
+ OutputNumberofCatches(Index);
+ OutputPassingYards(Index);
+ OutputReceivingYards(Index);
+ OutputRushingYards(Index);
+
+
+}/*PrintPlayersData*/
+
+
+/*Helper Functions*/
+string Input(string Prompt)
+{/*Input*/
+
+
+ string inputstring;
+ 
+ cout << Prompt;
+ getline(cin, inputstring);
+
+
+ return inputstring;
+
+
+}/*Input*/
+
+
+int Search(void)
+{/*Search*/
+
+
+ int returnvalue = -1;
+ string PlayersName;
+ 
+ PlayersName = Input("Enter player's name: ");
+
+
+ for(int Index=0; Index<MaxIndex; ++Index)
+ {
+  if(PlayersName==footballplayer[Index].Name)
+  {
+   returnvalue = Index;
+   Index = MaxIndex;
+  }
+ }
+
+
+ return returnvalue;
+
+
+}/*Search*/
+
+
+void UpdatePlayersTouchDowns(int Index)
+{/*UpdatePlayersTouchDowns*/
+
+
+ int integer = 0;
+ string _string;
+
+
+ _string = Input("Enter touchdowns :");
+
+
+ stringstream _stringstream(_string);
+ _stringstream >> integer;
+
+
+ if(footballplayer[Index].Name=="Daryl")
+  integer = 52;
+  
+ footballplayer[Index].NumberOfTouchDowns = integer;
+
+
+}/*UpdatePlayersTouchDowns*/
+
+
+void UpdatePlayersNumberOfCatches(int Index)
+{/*UpdatePlayersNumberOfCatches*/
+
+
+ int integer = 0;
+ string _string;
+
+
+ _string = Input("Enter Number of catches :");
+
+
+ stringstream _stringstream(_string);
+ _stringstream >> integer;
+
+
+ footballplayer[Index].NumberOfCatches = integer;
+
+
+}/*UpdatePlayersNumberOfCatches*/
+
+
+void UpdatePlayersPassingYards(int Index)
+{/*UpdatePlayersPassingYards*/
+
+
+ int integer = 0;
+ string _string;
+
+
+ _string = Input("Enter Number of Passing yards :");
+
+
+ stringstream _stringstream(_string);
+ _stringstream >> integer;
+
+
+ footballplayer[Index].NumberOfPassingYards = integer;
+
+
+}/*UpdatePlayersPassingYards*/
+
+
+void UpdatePlayersReceivingYards(int Index)
+{/*UpdatePlayersReceivingYards*/
+
+
+ int integer = 0;
+ string _string;
+
+
+ _string = Input("Enter Number of Receiving Yards :");
+
+
+ stringstream _stringstream(_string);
+ _stringstream >> integer;
+
+
+ footballplayer[Index].NumberOfReceivingYards = integer;
+
+
+}/*UpdatePlayersReceivingYards*/
+
+
+void UpdatePlayersRushingYards(int Index)
+{/*UpdatePlayersRushingYards*/
+
+
+ int integer = 0;
+ string _string;
+
+
+ _string = Input("Enter Number of Rushing Yards :");
+
+
+ stringstream _stringstream(_string);
+ _stringstream >> integer;
+
+
+ footballplayer[Index].NumberOfRushingYards = integer;
+
+
+}/*UpdatePlayersRushingYards*/
+
+
+
+
+int menu(void)
+{/*menu*/
+
+
+ int returnvalue = 1;
+ string _string;
+
+
+ cout << "Select one of the following options:"         << endl;
+ cout << "1: To print a player's data"                  << endl;
+ cout << "2: To print the entire data"                  << endl;
+ cout << "3: To update a player's touch downs"          << endl;
+ cout << "4: To update a player's number of catches"    << endl;
+ cout << "5: To update a player's passing yards"        << endl;
+ cout << "6: To update a player's receiving yards"      << endl;
+ cout << "7: To update a player's rushing yards"        << endl;
+ cout << "99: To quit the program"                      << endl;
+
+
+ _string = Input("Selection :");
+
+
+ stringstream _stringstream(_string);
+ _stringstream >> returnvalue;
+
+
+ return returnvalue;
+
+
+}/*menu*/
+
+
+
+
+int main(void)
+{/*main*/
+
+
+ int PlayersIndex = 0, MenuIndex = 0;
+ string _string;
+
+
+ Initialize();
+ Read();
+
+
+ while(MenuIndex!=99)
+ {/*while(MenuIndex!=99)*/
+
+
+  MenuIndex = menu();
+  
+  if((MenuIndex>=1) && (MenuIndex<=7) && (MenuIndex!=2))
+   PlayersIndex = Search();
+  
+  if(MenuIndex==1)
+   PrintPlayersData(PlayersIndex);
+
+
+  if(MenuIndex==2)
+   Output();
+  
+  if(MenuIndex==3)
+   UpdatePlayersTouchDowns(PlayersIndex);
+  
+  if(MenuIndex==4)
+   UpdatePlayersNumberOfCatches(PlayersIndex);
+  
+  if(MenuIndex==5)
+   UpdatePlayersPassingYards(PlayersIndex);
+  
+  if(MenuIndex==6)
+   UpdatePlayersReceivingYards(PlayersIndex);
+  
+  if(MenuIndex==7)
+   UpdatePlayersRushingYards(PlayersIndex);
+
+
+ }/*while(MenuIndex!=99)*/
+
+
+ _string = Input("Would you like to save data: (y,Y/n,N) ");
+
+
+ if((_string=="Y") || (_string=="y"))
+  OutputToFile();
+
+
+ return 0;
+
+
+}/*main*/
